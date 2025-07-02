@@ -4,48 +4,436 @@
     <meta charset="UTF-8" />
     <title>Formulário de Superendividamento - PROCON/ES</title>
     <script defer src="/script.js"></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-      }
-      fieldset {
-        margin-bottom: 2rem;
-        border: 1px solid #ccc;
-        padding: 1rem;
-      }
-      legend {
-        font-weight: bold;
-      }
-      .credor-block {
-        border: 1px dashed #aaa;
-        padding: 1rem;
-        margin-bottom: 1rem;
-      }
-      .remove-btn {
-        margin-top: 0.5rem;
-      }
-    </style>
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <h1>Formulário de Superendividamento - PROCON/ES</h1>
+    <header class="site-header">
+      <img
+        src="https://procon.es.gov.br/Media/procon/_Profiles/a69f6923/199e069e/LogomarcaProconES.JPG?v=638721690543577670"
+        alt="Logomarca PROCON/ES"
+        class="logo"
+      />
+      <div class="header-text">
+        <h1>PROCON/ES</h1>
+        <p>Formulário de Superendividamento</p>
+      </div>
+    </header>
 
     <form action="/send" method="POST">
-      <!-- Seção 1: Dados básicos -->
+      <!-- Seção 1: Identificação Completa -->
       <fieldset>
-        <legend>Identificação</legend>
-        <label>Nome: <input type="text" name="nome" required /></label
-        ><br /><br />
-        <label>CPF: <input type="text" name="cpf" required /></label
-        ><br /><br />
-        <label>Email: <input type="email" name="email" required /></label>
+        <legend>1 - Identificação Completa</legend>
+
+        <div class="inline-label-input">
+          <label for="nome-completo"
+            >Nome completo: <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="nome-completo"
+            name="nome"
+            placeholder="Digite seu nome completo"
+            required
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="cpf">CPF: <span class="asterisco">*</span></label>
+          <input
+            type="text"
+            id="cpf"
+            name="cpf"
+            required
+            placeholder="000.000.000-00"
+            maxlength="14"
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="endereco"
+            >Endereço: <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="endereco"
+            name="endereco"
+            required
+            placeholder="Rua, número, bairro, cidade"
+          />
+        </div>
+
+        <div class="inline-telefone">
+          <label>Telefone: <span class="asterisco">*</span></label>
+
+          <div class="inline-label-input ddd-input">
+            <input
+              type="text"
+              id="telefone_ddd"
+              name="telefone_ddd"
+              maxlength="3"
+              required
+              placeholder="27"
+            />
+          </div>
+
+          <div class="inline-label-input numero-input">
+            <input
+              type="text"
+              id="telefone_numero"
+              name="telefone_numero"
+              maxlength="15"
+              required
+              placeholder="99999-9999"
+            />
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="email">Email: <span class="asterisco">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="seuemail@exemplo.com"
+          />
+        </div>
       </fieldset>
 
-      <!-- Seção 2: Mapa dos Credores -->
+      <!-- Seção 2: Dados Socioeconômicos -->
       <fieldset>
-        <legend>Mapa dos Credores</legend>
+        <legend>2 - Dados Socioeconômicos</legend>
+
+        <div class="inline-label-input radio-group">
+          <label>Sexo: <span class="asterisco">*</span></label>
+          <div>
+            <label
+              ><input type="radio" name="sexo" value="Masculino" required />
+              Masculino</label
+            >
+            <label
+              ><input type="radio" name="sexo" value="Feminino" required />
+              Feminino</label
+            >
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="idade">Idade: <span class="asterisco">*</span></label>
+          <input
+            type="number"
+            id="idade"
+            name="idade"
+            min="0"
+            max="120"
+            required
+            placeholder="anos"
+            style="max-width: 100px"
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="cor-raca"
+            >Cor/raça (como se autodeclara):
+            <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="cor-raca"
+            name="cor_raca"
+            placeholder="Ex: Pardo, Branco, Preto"
+            required
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="data-nascimento"
+            >Data de nascimento: <span class="asterisco">*</span></label
+          >
+          <input
+            type="date"
+            required
+            id="data-nascimento"
+            name="data_nascimento"
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="profissao"
+            >Profissão: <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="profissao"
+            name="profissao"
+            placeholder="Sua profissão"
+            required
+          />
+        </div>
+
+        <div class="inline-label-input radio-group">
+          <label>Situação: <span class="asterisco">*</span></label>
+          <div>
+            <label
+              ><input type="radio" name="situacao" value="Ativo" /> Ativo</label
+            >
+            <label
+              ><input type="radio" name="situacao" value="Aposentado" />
+              Aposentado</label
+            >
+            <label
+              ><input type="radio" name="situacao" value="Desempregado" />
+              Desempregado</label
+            >
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="empresa-orgao">Empresa/Orgão Público: </label>
+          <input
+            type="text"
+            id="empresa-orgao"
+            name="empresa_orgao"
+            placeholder="Nome da empresa ou órgão"
+          />
+        </div>
+
+        <div class="inline-label-input radio-group">
+          <label>Estado civil: <span class="asterisco">*</span></label>
+          <div class="estado-civil-group">
+            <label
+              ><input type="radio" name="estado_civil" value="Casado" />
+              Casado</label
+            >
+            <label
+              ><input type="radio" name="estado_civil" value="Solteiro" />
+              Solteiro</label
+            >
+            <label
+              ><input type="radio" name="estado_civil" value="Divorciado" />
+              Divorciado</label
+            >
+            <label
+              ><input type="radio" name="estado_civil" value="Viuvo" />
+              Viúvo</label
+            >
+            <label
+              ><input type="radio" name="estado_civil" value="Convivente" />
+              Convivente</label
+            >
+            <label
+              ><input type="radio" name="estado_civil" value="Outro" />
+              Outro</label
+            >
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="numero-dependentes"
+            >Número de dependentes (incluso você mesmo):
+            <span class="asterisco">*</span></label
+          >
+          <input
+            type="number"
+            id="numero-dependentes"
+            name="numero_dependentes"
+            min="0"
+            max="20"
+            placeholder="0"
+            required
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="renda-bruta"
+            >Renda Bruta individual mensal:
+            <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="renda-bruta"
+            name="renda_bruta"
+            placeholder="R$ 0,00"
+            required
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="renda-liquida"
+            >Renda Líquida (sem empréstimos) mensal:
+            <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="renda-liquida"
+            name="renda_liquida"
+            placeholder="R$ 0,00"
+            required
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="renda-familiar"
+            >Renda FAMILIAR mensal: <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="renda-familiar"
+            name="renda_familiar"
+            placeholder="R$ 0,00"
+            required
+          />
+        </div>
+      </fieldset>
+
+      <!-- Seção 3: Despesas Mensais Correntes -->
+      <fieldset>
+        <legend>3 - Despesas Mensais Correntes</legend>
+
+        <div class="inline-duplo">
+          <div class="inline-label-input">
+            <label for="despesa-luz">Luz:</label>
+            <input
+              type="text"
+              id="despesa-luz"
+              name="despesa_luz"
+              placeholder="R$ 0,00"
+            />
+          </div>
+
+          <div class="inline-label-input">
+            <label for="despesa-agua">Água:</label>
+            <input
+              type="text"
+              id="despesa-agua"
+              name="despesa_agua"
+              placeholder="R$ 0,00"
+            />
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="despesa-telefone-internet">Telefone/Internet:</label>
+          <input
+            type="text"
+            id="despesa-telefone-internet"
+            name="despesa_telefone_internet"
+            placeholder="R$ 0,00"
+          />
+        </div>
+
+        <div class="inline-duplo">
+          <div class="inline-label-input">
+            <label for="despesa-aluguel">Aluguel:</label>
+            <input
+              type="text"
+              id="despesa-aluguel"
+              name="despesa_aluguel"
+              placeholder="R$ 0,00"
+            />
+          </div>
+
+          <div class="inline-label-input">
+            <label for="despesa-condominio">Condomínio:</label>
+            <input
+              type="text"
+              id="despesa-condominio"
+              name="despesa_condominio"
+              placeholder="R$ 0,00"
+            />
+          </div>
+        </div>
+
+        <div class="inline-duplo">
+          <div class="inline-label-input">
+            <label for="despesa-medicamentos">Medicamentos:</label>
+            <input
+              type="text"
+              id="despesa-medicamentos"
+              name="despesa_medicamentos"
+              placeholder="R$ 0,00"
+            />
+          </div>
+
+          <div class="inline-label-input">
+            <label for="despesa-alimentacao">Alimentação:</label>
+            <input
+              type="text"
+              id="despesa-alimentacao"
+              name="despesa_alimentacao"
+              placeholder="R$ 0,00"
+            />
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="despesa-gas">Gás de Cozinha/Abastecimento:</label>
+          <input
+            type="text"
+            id="despesa-gas"
+            name="despesa_gas"
+            placeholder="R$ 0,00"
+          />
+        </div>
+
+        <div class="inline-duplo">
+          <div class="inline-label-input">
+            <label for="despesa-plano-saude">Plano de saúde:</label>
+            <input
+              type="text"
+              id="despesa-plano-saude"
+              name="despesa_plano_saude"
+              placeholder="R$ 0,00"
+            />
+          </div>
+
+          <div class="inline-label-input">
+            <label for="despesa-educacao">Educação:</label>
+            <input
+              type="text"
+              id="despesa-educacao"
+              name="despesa_educacao"
+              placeholder="R$ 0,00"
+            />
+          </div>
+        </div>
+
+        <div class="inline-duplo">
+          <div class="inline-label-input">
+            <label for="despesa-pensao-alimenticia">Pensão alimentícia:</label>
+            <input
+              type="text"
+              id="despesa-pensao-alimenticia"
+              name="despesa_pensao_alimenticia"
+              placeholder="R$ 0,00"
+            />
+          </div>
+
+          <div class="inline-label-input">
+            <label for="despesa-impostos">Impostos (IPTU, IPVA) Mensal:</label>
+            <input
+              type="text"
+              id="despesa-impostos"
+              name="despesa_impostos"
+              placeholder="R$ 0,00"
+            />
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="despesa-outras">Outras despesas (especificar):</label>
+          <input
+            type="text"
+            id="despesa-outras"
+            name="despesa_outras"
+            placeholder="R$ 0,00"
+          />
+        </div>
+      </fieldset>
+
+      <!-- Seção 4: Mapa dos Credores -->
+      <fieldset>
+        <legend>4 - Mapa dos Credores</legend>
         <div id="credores-container">
           <!-- Credores dinâmicos aparecerão aqui -->
         </div>
@@ -54,5 +442,16 @@
 
       <button type="submit">Enviar Formulário</button>
     </form>
+    <footer class="site-footer">
+      <p>
+        <strong
+          >Instituto Estadual de Proteção e Defesa do Consumidor
+          (Procon-ES)</strong
+        >
+      </p>
+      <p>Avenida Jerônimo Monteiro, nº 935 - Centro</p>
+      <p>CEP: 29.010-003 - Vitória / Espírito Santo</p>
+      <p>Tel.: 151</p>
+    </footer>
   </body>
 </html>
