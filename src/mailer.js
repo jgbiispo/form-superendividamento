@@ -3,18 +3,7 @@ import nodemailer from "nodemailer";
 export async function sendForm(req, res) {
   const dados = req.body;
 
-  // Validação simples dos dados
-  if (
-    !dados.nome ||
-    !dados.cpf ||
-    !dados.email ||
-    !dados["credor-nome"] ||
-    !dados["credor-cnpj"] ||
-    !dados["credor-valor"] ||
-    !dados["credor-parcelas"]
-  ) {
-    return res.status(400).send("Todos os campos são obrigatórios.");
-  }
+  console.log("Dados recebidos:", dados);
 
   const credores = Array.isArray(dados["credor-nome"])
     ? dados["credor-nome"].map((_, i) => ({
@@ -54,16 +43,16 @@ export async function sendForm(req, res) {
     port: 587,
     secure: false,
     auth: {
-      user: "impressora@procon.es.gov.br",
-      pass: "@procon123", // adicionar no .env depois
+      user: "superendividamento@procon.es.gov.br",
+      pass: "@Procon123", // adicionar no .env depois
     },
   });
 
   // Envio do e-mail
   try {
     await transporter.sendMail({
-      from: '"Formulário PROCON" <seu@email.com>',
-      to: "destinatario@procon.es.gov.br",
+      from: '"Formulário PROCON" <superendividamento@procon.es.gov.br>',
+      to: "joao.bispo@procon.es.gov.br",
       subject: "Novo Formulário de Superendividamento",
       html: conteudoEmail,
     });

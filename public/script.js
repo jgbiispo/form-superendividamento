@@ -1,154 +1,164 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("credores-container");
-  const addBtn = document.getElementById("add-credor");
-  let id = 0;
+import nodemailer from "nodemailer";
 
-  function createCredorBlock() {
-    const div = document.createElement("fieldset");
-    div.className = "credor-item";
+export async function sendForm(req, res) {
+  const dados = req.body;
 
-    const idSuffix = Date.now() + "-" + id; // para evitar conflito e ter id único
+  // Etapa 1: Identificar quantidade de credores
+  const nomesCredores = dados["credor_nome[]"];
+  const totalCredores = Array.isArray(nomesCredores)
+    ? nomesCredores.length
+    : nomesCredores
+    ? 1
+    : 0;
 
-    div.innerHTML = `
-      <legend class="toggle-legend" style="cursor:pointer;">Credor (clique para expandir/recolher)</legend>
+  // Etapa 2: Agrupar os campos dinâmicos por índice
+  const credores = [];
 
-      <div class="credor-content">
-        <div class="inline-label-input">
-          <label>Nome do Credor:<span class="asterisco">*</span></label>
-          <input type="text" name="credor_nome[]" required>
-        </div>
+  for (let i = 0; i < totalCredores; i++) {
+    const credor = {
+      nome: getValue(dados["credor_nome[]"], i),
+      cnpj: getValue(dados["credor_cnpj[]"], i),
+      valor: getValue(dados["credor_valor[]"], i),
+      valor_parcela: getValue(dados["credor_valor_parcela[]"], i),
+      parcelas_pagas: getValue(dados["credor_parcelas_pagas[]"], i),
+      parcelas_restantes: getValue(dados["credor_parcelas_restantes[]"], i),
+      tipo_outros: getValue(dados["credor_tipo_outros[]"], i),
+      num_prestacoes: getValue(dados["credor_num_prestacoes[]"], i),
+      garantia_qual: getValue(dados["credor_garantia_qual[]"], i),
+    };
 
-        <div class="inline-duplo">
-          <div class="inline-label-input">
-            <label>CNPJ:</label>
-            <input type="text" name="credor_cnpj[]" required>
-          </div>
-          <div class="inline-label-input">
-            <label>Valor original da dívida (R$):<span class="asterisco">*</span></label>
-            <input type="text" name="credor_valor[]" required placeholder="R$ 0,00">
-          </div>
-        </div>
+    // Etapa 3: Capturar campos com nomes dinâmicos via sufixo (ex: credor_tipo_1234[])
+    const chaves = Object.keys(dados);
+    const tipos = [];
+    let garantia = "";
+    let processo = "";
+    let desconto = "";
+    let vencida = "";
+    let renegociacao = "";
+    let como_renegociou = [];
+    let contrato = "";
+    let contrato_quando = "";
+    let inadimplente = "";
 
-        <div class="inline-duplo">
-          <div class="inline-label-input">
-            <label>Valor das parcelas (R$):<span class="asterisco">*</span></label>
-            <input type="text" name="credor_valor_parcela[]" required placeholder="R$ 0,00">
-          </div>
-          <div class="inline-label-input">
-            <label>Parcelas pagas:<span class="asterisco">*</span></label>
-            <input type="number" name="credor_parcelas_pagas[]" min="0">
-          </div>
-          <div class="inline-label-input">
-            <label>Parcelas restantes:<span class="asterisco">*</span></label>
-            <input type="number" name="credor_parcelas_restantes[]" min="0">
-          </div>
-        </div>
+    for (let key of chaves) {
+      if (key.startsWith("credor_tipo_") && Array.isArray(dados[key]))
+        tipos.push(...dados[key]);
+      if (key.startsWith("credor_garantia_")) garantia = dados[key];
+      if (key.startsWith("credor_processo_")) processo = dados[key];
+      if (key.startsWith("credor_desconto_")) desconto = dados[key];
+      if (key.startsWith("credor_vencida_")) vencida = dados[key];
+      if (key.startsWith("credor_renegociacao_")) renegociacao = dados[key];
+      if (key.startsWith("credor_como_") && Array.isArray(dados[key]))
+        como_renegociou.push(...dados[key]);
+      if (key.startsWith("credor_contrato_") && !key.includes("quando"))
+        contrato = dados[key];
+      if (key.startsWith("credor_contrato_quando_"))
+        contrato_quando = dados[key];
+      if (key.startsWith("credor_inadimplente_")) inadimplente = dados[key];
+    }
 
-        <div class="inline-label-input">
-          <label>Tipo de dívida:<span class="asterisco">*</span></label>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="credor_tipo_${idSuffix}[]" value="Cartão de Crédito"> Fatura Cartão de Crédito</label>
-            <label><input type="checkbox" name="credor_tipo_${idSuffix}[]" value="Empréstimo"> Empréstimo pessoal/Consignado</label>
-            <label><input type="checkbox" name="credor_tipo_${idSuffix}[]" value="Financiamento"> Financiamento Veículo/Imobiliário</label>
-            <label><input type="checkbox" name="credor_tipo_${idSuffix}[]" value="Outros"> Outros:</label>
-            <input type="text" name="credor_tipo_outros[]" placeholder="Especifique">
-          </div>
-        </div>
+    credor.tipo = tipos;
+    credor.garantia = garantia;
+    credor.processo = processo;
+    credor.desconto = desconto;
+    credor.vencida = vencida;
+    credor.renegociacao = renegociacao;
+    credor.como = como_renegociou;
+    credor.contrato = contrato;
+    credor.contrato_quando = contrato_quando;
+    credor.inadimplente = inadimplente;
 
-        <div class="inline-label-input">
-          <label>Com garantia:</label>
-          <label><input type="radio" name="credor_garantia_${idSuffix}" value="Sim"> Sim</label>
-          <label><input type="radio" name="credor_garantia_${idSuffix}" value="Não"> Não</label>
-          <label><input type="radio" name="credor_garantia_${idSuffix}" value="Não se aplica"> Não se aplica</label>
-          <input type="text" name="credor_garantia_qual[]" placeholder="Qual?">
-        </div>
-
-        <div class="inline-label-input">
-          <label>Possui processo judicial pendente? <span class="asterisco">*</span></label>
-          <label><input type="radio" name="credor_processo_${idSuffix}" value="Sim"> Sim</label>
-          <label><input type="radio" name="credor_processo_${idSuffix}" value="Não"> Não</label>
-        </div>
-
-        <div class="inline-label-input">
-          <label>Desconto em folha ou benefício: <span class="asterisco">*</span></label>
-          <label><input type="radio" name="credor_desconto_${idSuffix}" value="Sim"> Sim</label>
-          <input type="number" name="credor_num_prestacoes[]" placeholder="nº prestações">
-          <label><input type="radio" name="credor_desconto_${idSuffix}" value="Não"> Não</label>
-          <label><input type="radio" name="credor_desconto_${idSuffix}" value="Não se aplica"> Não se aplica</label>
-        </div>
-
-        <div class="inline-label-input">
-          <label>A dívida está vencida? <span class="asterisco">*</span></label>
-          <label><input type="radio" name="credor_vencida_${idSuffix}" value="Sim"> Sim</label>
-          <label><input type="radio" name="credor_vencida_${idSuffix}" value="Não"> Não</label>
-        </div>
-
-        <div class="inline-label-input">
-          <label>Tentou renegociar? <span class="asterisco">*</span></label>
-          <label><input type="radio" name="credor_renegociacao_${idSuffix}" value="Sim"> Sim</label>
-          <label><input type="radio" name="credor_renegociacao_${idSuffix}" value="Não"> Não</label>
-        </div>
-
-        <div class="inline-label-input">
-          <label>Como tentou renegociar? <span class="asterisco">*</span></label>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="credor_como_${idSuffix}[]" value="Próprio credor"> Próprio credor</label>
-            <label><input type="checkbox" name="credor_como_${idSuffix}[]" value="Defensoria Pública"> Defensoria Pública</label>
-            <label><input type="checkbox" name="credor_como_${idSuffix}[]" value="Advogado"> Advogado</label>
-            <label><input type="checkbox" name="credor_como_${idSuffix}[]" value="Juizado Especial"> Juizado Especial Cível</label>
-          </div>
-        </div>
-
-        <div class="inline-label-input">
-          <label>Recebeu cópia do contrato? <span class="asterisco">*</span></label>
-          <label><input type="radio" name="credor_contrato_${idSuffix}" value="Sim"> Sim</label>
-          <label><input type="radio" name="credor_contrato_${idSuffix}" value="Não"> Não</label>
-          <label><input type="radio" name="credor_contrato_${idSuffix}" value="Não se aplica"> Não se aplica</label>
-          <label><input type="radio" name="credor_contrato_quando_${idSuffix}" value="Antes"> Antes de assinar</label>
-          <label><input type="radio" name="credor_contrato_quando_${idSuffix}" value="Depois"> Depois de assinar</label>
-        </div>
-
-        <div class="inline-label-input">
-          <label>Estava em cadastro de inadimplentes ao contratar? <span class="asterisco">*</span></label>
-          <label><input type="radio" name="credor_inadimplente_${idSuffix}" value="Sim"> Sim</label>
-          <label><input type="radio" name="credor_inadimplente_${idSuffix}" value="Não"> Não</label>
-        </div>
-
-        <button type="button" class="remove-btn">Remover Credor</button>
-      </div>
-    `;
-
-    // Incrementa o ID para o próximo bloco
-    id++;
-
-    // Botão de remover credor
-    div.querySelector(".remove-btn").addEventListener("click", () => {
-      container.removeChild(div);
-    });
-
-    // Colapsar / Expandir
-    const legend = div.querySelector("legend");
-    const content = div.querySelector(".credor-content");
-    content.style.display = "block"; // inicial aberto
-
-    legend.addEventListener("click", () => {
-      if (content.style.display === "none") {
-        content.style.display = "block";
-        legend.textContent = "Credor (clique para expandir/recolher)";
-      } else {
-        content.style.display = "none";
-        legend.textContent = "Credor (clique para expandir/recolher) ▼";
-      }
-    });
-
-    container.appendChild(div);
+    credores.push(credor);
   }
 
-  // Adiciona dinamicamente novos credores
-  addBtn.addEventListener("click", () => {
-    createCredorBlock();
+  const conteudoEmail = `
+    <h2>Formulário de Superendividamento</h2>
+
+    <h3>1 - Identificação</h3>
+    <p><strong>Nome:</strong> ${dados.nome}</p>
+    <p><strong>CPF:</strong> ${dados.cpf}</p>
+    <p><strong>Endereço:</strong> ${dados.endereco}</p>
+    <p><strong>Telefone:</strong> (${dados.telefone_ddd}) ${
+    dados.telefone_numero
+  }</p>
+    <p><strong>Email:</strong> ${dados.email}</p>
+
+    <h3>2 - Dados Socioeconômicos</h3>
+    <p><strong>Sexo:</strong> ${dados.sexo}</p>
+    <p><strong>Idade:</strong> ${dados.idade}</p>
+    <p><strong>Cor/Raça:</strong> ${dados.cor_raca}</p>
+    <p><strong>Data de nascimento:</strong> ${dados.data_nascimento}</p>
+    <p><strong>Profissão:</strong> ${dados.profissao}</p>
+    <p><strong>Situação:</strong> ${dados.situacao}</p>
+    <p><strong>Empresa/Órgão:</strong> ${dados.empresa_orgao}</p>
+    <p><strong>Estado Civil:</strong> ${dados.estado_civil}</p>
+    <p><strong>Nº de Dependentes:</strong> ${dados.numero_dependentes}</p>
+    <p><strong>Renda Bruta:</strong> ${dados.renda_bruta}</p>
+    <p><strong>Renda Líquida:</strong> ${dados.renda_liquida}</p>
+    <p><strong>Renda Familiar:</strong> ${dados.renda_familiar}</p>
+
+    <h3>4 - Mapa dos Credores</h3>
+    ${credores
+      .map(
+        (c, i) => `
+      <h4>Credor ${i + 1}</h4>
+      <ul>
+        <li><strong>Nome:</strong> ${c.nome}</li>
+        <li><strong>CNPJ:</strong> ${c.cnpj}</li>
+        <li><strong>Valor original:</strong> ${c.valor}</li>
+        <li><strong>Valor da parcela:</strong> ${c.valor_parcela}</li>
+        <li><strong>Parcelas pagas:</strong> ${c.parcelas_pagas}</li>
+        <li><strong>Parcelas restantes:</strong> ${c.parcelas_restantes}</li>
+        <li><strong>Tipo:</strong> ${c.tipo.join(", ") || "Não informado"}</li>
+        <li><strong>Tipo outros:</strong> ${c.tipo_outros}</li>
+        <li><strong>Com garantia:</strong> ${c.garantia} - ${
+          c.garantia_qual
+        }</li>
+        <li><strong>Processo judicial:</strong> ${c.processo}</li>
+        <li><strong>Desconto em folha:</strong> ${c.desconto} (${
+          c.num_prestacoes || "0"
+        } prestações)</li>
+        <li><strong>Dívida vencida:</strong> ${c.vencida}</li>
+        <li><strong>Tentou renegociar:</strong> ${c.renegociacao}</li>
+        <li><strong>Como:</strong> ${c.como.join(", ") || "Não informado"}</li>
+        <li><strong>Recebeu contrato:</strong> ${c.contrato} (${
+          c.contrato_quando
+        })</li>
+        <li><strong>Estava inadimplente ao contratar:</strong> ${
+          c.inadimplente
+        }</li>
+      </ul>
+    `
+      )
+      .join("")}
+  `;
+
+  const transporter = nodemailer.createTransport({
+    host: "procon.correio.es.gov.br",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "superendividamento@procon.es.gov.br",
+      pass: "@Procon123", // usar process.env depois
+    },
   });
 
-  // Cria o primeiro credor por padrão
-  createCredorBlock();
-});
+  try {
+    await transporter.sendMail({
+      from: '"Formulário PROCON" <superendividamento@procon.es.gov.br>',
+      to: "joao.bispo@procon.es.gov.br",
+      subject: "Novo Formulário de Superendividamento",
+      html: conteudoEmail,
+    });
+
+    res.send("Formulário enviado com sucesso!");
+  } catch (err) {
+    console.error("Erro ao enviar e-mail:", err);
+    res.status(500).send("Erro ao enviar e-mail.");
+  }
+}
+
+function getValue(field, index) {
+  if (Array.isArray(field)) return field[index] || "";
+  return index === 0 ? field : "";
+}
