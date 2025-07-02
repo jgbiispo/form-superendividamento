@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Formulário de Superendividamento - PROCON/ES</title>
+    <script defer src="/script.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      fieldset {
+        margin-bottom: 2rem;
+        border: 1px solid #ccc;
+        padding: 1rem;
+      }
+      legend {
+        font-weight: bold;
+      }
+      .credor-block {
+        border: 1px dashed #aaa;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .remove-btn {
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Formulário de Superendividamento - PROCON/ES</h1>
+
+    <form action="/send" method="POST">
+      <!-- Seção 1: Dados básicos -->
+      <fieldset>
+        <legend>Identificação</legend>
+        <label>Nome: <input type="text" name="nome" required /></label
+        ><br /><br />
+        <label>CPF: <input type="text" name="cpf" required /></label
+        ><br /><br />
+        <label>Email: <input type="email" name="email" required /></label>
+      </fieldset>
+
+      <!-- Seção 2: Mapa dos Credores -->
+      <fieldset>
+        <legend>Mapa dos Credores</legend>
+        <div id="credores-container">
+          <!-- Credores dinâmicos aparecerão aqui -->
+        </div>
+        <button type="button" id="add-credor">+ Adicionar Credor</button>
+      </fieldset>
+
+      <button type="submit">Enviar Formulário</button>
+    </form>
+  </body>
+</html>
