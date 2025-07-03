@@ -1,11 +1,5 @@
 import nodemailer from "nodemailer";
 import { registrarLog } from "./logger.js";
-import OpenAI from "openai";
-
-const openai = new OpenAI({
-  baseURL: "https://api.deepseek.com",
-  apiKey: process.env.DEEPSEEK_API_KEY,
-});
 
 function escapeHtml(text) {
   return text
@@ -116,13 +110,6 @@ export async function sendForm(req, res) {
   } else if (percComprometido >= 25 && percComprometido <= 30) {
     situacao = "Possivelmente superendividado";
   }
-
-  const resumoIA = await gerarResumoIA(
-    dados,
-    totalDespesas,
-    percComprometido,
-    causas
-  );
 
   const fromName = dados.nome ? dados.nome.replace(/["<>]/g, "") : "Usuário";
 
@@ -257,9 +244,6 @@ export async function sendForm(req, res) {
       </fieldset>`
       )
       .join("")}
-
-    <h3 style="color:#0069d9;">6. Resumo Final</h3>
-    ${resumoIA}
   </div>
   `;
 
@@ -288,56 +272,5 @@ export async function sendForm(req, res) {
   } catch (err) {
     registrarLog("ERRO", `Falha ao enviar e-mail: ${err.message}`);
     res.status(500).send("Erro ao enviar e-mail.");
-  }
-}
-
-async function gerarResumoIA(
-  dados,
-  totalDespesas,
-  percComprometido,
-  causasArray
-) {
-  const prompt = `
-Você é um assistente financeiro que deve gerar um resumo, com base na Lei 14.181/2021, claro e objetivo sobre a situação de superendividamento do consumidor, com base nos seguintes dados:
-
-- Renda líquida mensal: R$ ${dados.renda_liquida || "0,00"}
-- Total de despesas mensais: R$ ${totalDespesas.toFixed(2)}
-- Percentual da renda comprometida com dívidas: ${percComprometido.toFixed(1)}%
-- Número de credores: ${dados.numero_credores || 0}
-- Número de dívidas: ${dados.numero_dividas || 0}
-- Outras informações relevantes: causas das dívidas são "${causasArray.join(
-    ", "
-  )}".
----
-
-Não adicione caracteres especiais, deve ser em html por vai ir para um email. O resumo deve ser claro, objetivo e fácil de entender, evitando jargões financeiros complexos. Foque nos seguintes pontos:
-- Situação financeira atual do consumidor;
-- Principais causas do superendividamento;
-- Recomendações gerais para lidar com a situação;
-- Sugestões de ações imediatas que o consumidor pode tomar.
-
-Resumo deve ser escrito em português.
-Não precisa volta bloco de código, apenas o texto do resumo em HTML. Sem titulo, apenas paragrafos e listas, se necessário.
-Adicione aviso que não se deve confiar 100% na IA, e que é recomendável consultar um advogado ou especialista em finanças para uma análise mais detalhada e personalizada da situação do consumidor.
-`;
-
-  try {
-    const completion = await openai.chat.completions.create({
-      model: "deepseek-chat",
-      messages: [
-        {
-          role: "system",
-          content: "Você é um assistente financeiro experiente e objetivo.",
-        },
-        { role: "user", content: prompt },
-      ],
-      max_tokens: 4000,
-      temperature: 1.0,
-    });
-
-    return completion.choices[0].message.content.trim();
-  } catch (error) {
-    registrarLog("ERRO", `Erro ao gerar resumo IA: ${error.message}`);
-    return "Resumo financeiro indisponível no momento.";
   }
 }
