@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const logDir = path.resolve("src", "logs");
+const logDir = path.resolve("logs");
 if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
 
 const logFile = path.join(logDir, "sistema.log");
