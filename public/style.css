@@ -23,7 +23,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #f2f4f8;
   color: #333;
   line-height: 1.6;
@@ -98,10 +98,10 @@ label {
   font-weight: 500;
 }
 
-input[type='text'],
-input[type='number'],
-input[type='email'],
-input[type='date'],
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
 select,
 textarea {
   width: 100%;
@@ -189,6 +189,22 @@ button:active {
 
 .asterisco {
   color: red;
+}
+
+.button-voltar {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #1a73e8;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.button-voltar:hover {
+  background-color: #0c54b2;
 }
 
 /* ----------  Credores dinâmicos  ---------- */

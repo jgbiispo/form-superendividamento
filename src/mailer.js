@@ -118,7 +118,7 @@ export async function sendForm(req, res) {
       html: conteudoEmail,
     });
 
-    res.send("Formulário enviado com sucesso!");
+    res.render("sent", { title: "Formulário Enviado" });
   } catch (err) {
     registrarLog("ERRO", `Falha ao enviar e-mail: ${err.message}`);
     res.status(500).send("Erro ao enviar e-mail.");
