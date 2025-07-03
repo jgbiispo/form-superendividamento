@@ -1,8 +1,14 @@
+// public/form.js
+
+// Espera o DOM estar pronto
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("credores-container");
   const addBtn = document.getElementById("add-credor");
+  const btnVoltarTopo = document.getElementById("voltar-topo");
 
-  // Máscaras simples
+  let contador = 0;
+
+  // Aplica máscaras em campos padrão
   const applyMasks = () => {
     const cpf = document.getElementById("cpf");
     const ddd = document.getElementById("telefone_ddd");
@@ -28,13 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Criação dinâmica do bloco de credor
-  let contador = 0;
+  // Cria novo bloco de credor
   const criarCredor = () => {
     const id = contador++;
 
     // Fecha todos os anteriores
-    document.querySelectorAll(".credor-body").forEach((body) => {
+    document.querySelectorAll(".credor-body.expanded").forEach((body) => {
+      body.classList.remove("expanded");
       body.style.display = "none";
     });
     document.querySelectorAll(".toggle-btn").forEach((btn, index) => {
@@ -43,12 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const wrapper = document.createElement("div");
     wrapper.className = "credor-wrapper";
+
     wrapper.innerHTML = `
       <div class="credor-header">
         <button type="button" class="toggle-btn">▼ Credor ${id + 1}</button>
         <button type="button" class="remove-btn" title="Remover credor">✖</button>
       </div>
-      <fieldset class="credor-body">
+      <fieldset class="credor-body expanded">
         <div class="inline-label-input">
           <label>Nome do Credor:</label>
           <input type="text" name="credor_nome[]" required />
@@ -82,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <div class="inline-label-input">
-          <label>Tipo de dívida (marque o que se aplica):</label>
+          <label>Tipo de dívida:</label>
           <div class="radio-group">
             <label><input type="checkbox" name="credor_tipo_${id}[]" value="Fatura Cartão de Crédito" /> Fatura Cartão de Crédito</label>
             <label><input type="checkbox" name="credor_tipo_${id}[]" value="Empréstimo pessoal/Consignado" /> Empréstimo pessoal/Consignado</label>
@@ -111,13 +118,13 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <div class="inline-label-input">
-          <label>Desconto em folha de pagamento ou benefício previdenciário:</label>
+          <label>Desconto em folha de pagamento/benefício:</label>
           <div class="radio-group">
             <label><input type="radio" name="credor_desconto_${id}" value="Sim" /> Sim</label>
+            <input type="text" name="credor_num_prestacoes[]" placeholder="Nº de prestações (se Sim)" />
             <label><input type="radio" name="credor_desconto_${id}" value="Não" /> Não</label>
             <label><input type="radio" name="credor_desconto_${id}" value="Não se aplica" /> Não se aplica</label>
           </div>
-          <input type="text" name="credor_num_prestacoes[]" placeholder="Nº de prestações (se Sim)" />
         </div>
 
         <div class="inline-label-input">
@@ -164,36 +171,29 @@ document.addEventListener("DOMContentLoaded", () => {
             <label><input type="radio" name="credor_inadimplente_${id}" value="Não" /> Não</label>
           </div>
         </div>
-      </fieldset> 
-
+      </fieldset>
     `;
 
-    // Expandir/colapsar
+    // Eventos
     const toggleBtn = wrapper.querySelector(".toggle-btn");
     const fieldset = wrapper.querySelector(".credor-body");
     toggleBtn.addEventListener("click", () => {
-      const hidden = fieldset.style.display === "none";
-      fieldset.style.display = hidden ? "block" : "none";
-      toggleBtn.textContent = `${hidden ? "▼" : "▲"} Credor ${id + 1}`;
+      const expanded = fieldset.classList.toggle("expanded");
+      fieldset.style.display = expanded ? "block" : "none";
+      toggleBtn.textContent = `${expanded ? "▼" : "▲"} Credor ${id + 1}`;
     });
 
-    // Remover bloco
     const removeBtn = wrapper.querySelector(".remove-btn");
-    removeBtn.addEventListener("click", () => container.removeChild(wrapper));
+    removeBtn.addEventListener("click", () => wrapper.remove());
 
     container.appendChild(wrapper);
     wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   addBtn?.addEventListener("click", criarCredor);
-
-  // Inicia com um credor visível
   if (container.children.length === 0) criarCredor();
-
-  const btnVoltarTopo = document.getElementById("voltar-topo");
   btnVoltarTopo?.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-
   applyMasks();
 });
