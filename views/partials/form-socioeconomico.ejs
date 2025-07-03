@@ -1,0 +1,168 @@
+<fieldset>
+  <legend>2 - Dados Socioeconômicos</legend>
+
+  <div class="inline-label-input radio-group">
+    <label>Sexo: <span class="asterisco">*</span></label>
+    <div>
+      <label
+        ><input type="radio" name="sexo" value="Masculino" required />
+        Masculino</label
+      >
+      <label
+        ><input type="radio" name="sexo" value="Feminino" required />
+        Feminino</label
+      >
+    </div>
+  </div>
+
+  <div class="inline-label-input">
+    <label for="idade">Idade: <span class="asterisco">*</span></label>
+    <input
+      type="number"
+      id="idade"
+      name="idade"
+      min="0"
+      max="120"
+      required
+      placeholder="anos"
+    />
+  </div>
+
+  <div class="inline-label-input">
+    <label for="cor-raca"
+      >Cor/raça (como se autodeclara): <span class="asterisco">*</span></label
+    >
+    <input
+      type="text"
+      id="cor-raca"
+      name="cor_raca"
+      required
+      placeholder="Ex: Pardo, Branco, Preto"
+    />
+  </div>
+
+  <div class="inline-label-input">
+    <label for="data-nascimento"
+      >Data de nascimento: <span class="asterisco">*</span></label
+    >
+    <input type="date" id="data-nascimento" name="data_nascimento" required />
+  </div>
+
+  <div class="inline-label-input">
+    <label for="profissao">Profissão: <span class="asterisco">*</span></label>
+    <input
+      type="text"
+      id="profissao"
+      name="profissao"
+      required
+      placeholder="Sua profissão"
+    />
+  </div>
+
+  <div class="inline-label-input radio-group">
+    <label>Situação: <span class="asterisco">*</span></label>
+    <div>
+      <label><input type="radio" name="situacao" value="Ativo" /> Ativo</label>
+      <label
+        ><input type="radio" name="situacao" value="Aposentado" />
+        Aposentado</label
+      >
+      <label
+        ><input type="radio" name="situacao" value="Desempregado" />
+        Desempregado</label
+      >
+    </div>
+  </div>
+
+  <div class="inline-label-input">
+    <label for="empresa-orgao">Empresa/Órgão Público:</label>
+    <input
+      type="text"
+      id="empresa-orgao"
+      name="empresa_orgao"
+      placeholder="Nome da empresa ou órgão"
+    />
+  </div>
+
+  <div class="inline-label-input radio-group">
+    <label>Estado civil: <span class="asterisco">*</span></label>
+    <div class="estado-civil-group">
+      <label
+        ><input type="radio" name="estado_civil" value="Casado" /> Casado</label
+      >
+      <label
+        ><input type="radio" name="estado_civil" value="Solteiro" />
+        Solteiro</label
+      >
+      <label
+        ><input type="radio" name="estado_civil" value="Divorciado" />
+        Divorciado</label
+      >
+      <label
+        ><input type="radio" name="estado_civil" value="Viuvo" /> Viúvo</label
+      >
+      <label
+        ><input type="radio" name="estado_civil" value="Convivente" />
+        Convivente</label
+      >
+      <label
+        ><input type="radio" name="estado_civil" value="Outro" /> Outro</label
+      >
+    </div>
+  </div>
+
+  <div class="inline-label-input">
+    <label for="numero-dependentes"
+      >Número de dependentes (incluindo você):
+      <span class="asterisco">*</span></label
+    >
+    <input
+      type="number"
+      id="numero-dependentes"
+      name="numero_dependentes"
+      min="0"
+      max="20"
+      required
+    />
+  </div>
+
+  <div class="inline-label-input">
+    <label for="renda-bruta"
+      >Renda Bruta individual mensal: <span class="asterisco">*</span></label
+    >
+    <input
+      type="text"
+      id="renda-bruta"
+      name="renda_bruta"
+      required
+      placeholder="R$ 0,00"
+    />
+  </div>
+
+  <div class="inline-label-input">
+    <label for="renda-liquida"
+      >Renda Líquida mensal (sem empréstimos):
+      <span class="asterisco">*</span></label
+    >
+    <input
+      type="text"
+      id="renda-liquida"
+      name="renda_liquida"
+      required
+      placeholder="R$ 0,00"
+    />
+  </div>
+
+  <div class="inline-label-input">
+    <label for="renda-familiar"
+      >Renda Familiar mensal: <span class="asterisco">*</span></label
+    >
+    <input
+      type="text"
+      id="renda-familiar"
+      name="renda_familiar"
+      required
+      placeholder="R$ 0,00"
+    />
+  </div>
+</fieldset>

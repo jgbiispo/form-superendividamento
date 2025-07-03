@@ -1,0 +1,158 @@
+<fieldset>
+  <legend>4 - Informações sobre o Superendividamento</legend>
+
+  <div class="inline-label-input radio-group">
+    <label>Possui casa própria? <span class="asterisco">*</span></label>
+    <div>
+      <label
+        ><input type="radio" name="casa_propria" value="Sim" required />
+        Sim</label
+      >
+      <label
+        ><input type="radio" name="casa_propria" value="Não" required />
+        Não</label
+      >
+    </div>
+  </div>
+
+  <div class="inline-label-input">
+    <label for="divida_total"
+      >Montante total da dívida: <span class="asterisco">*</span></label
+    >
+    <input
+      type="text"
+      id="divida_total"
+      name="divida_total"
+      required
+      placeholder="R$ 0,00"
+    />
+  </div>
+
+  <div class="inline-label-input">
+    <label for="comprometimento_mensal"
+      >Comprometimento mensal com dívidas:
+      <span class="asterisco">*</span></label
+    >
+    <input
+      type="text"
+      id="comprometimento_mensal"
+      name="comprometimento_mensal"
+      required
+      placeholder="R$ 0,00"
+    />
+  </div>
+
+  <div class="inline-duplo">
+    <div class="inline-label-input">
+      <label for="numero_credores"
+        >Número de credores (empresas): <span class="asterisco">*</span></label
+      >
+      <input
+        type="number"
+        id="numero_credores"
+        name="numero_credores"
+        min="0"
+        required
+      />
+    </div>
+    <div class="inline-label-input">
+      <label for="numero_dividas"
+        >Número de dívidas: <span class="asterisco">*</span></label
+      >
+      <input
+        type="number"
+        id="numero_dividas"
+        name="numero_dividas"
+        min="0"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="inline-label-input">
+    <label>Causas das dívidas (marque as aplicáveis):</label>
+    <div class="radio-group">
+      <label
+        ><input
+          type="checkbox"
+          name="causas[]"
+          value="Gastou mais do que ganha"
+        />
+        Gastou mais do que ganha</label
+      >
+      <label
+        ><input type="checkbox" name="causas[]" value="Desemprego" />
+        Desemprego</label
+      >
+      <label
+        ><input type="checkbox" name="causas[]" value="Divórcio/separação" />
+        Divórcio/separação</label
+      >
+      <label
+        ><input
+          type="checkbox"
+          name="causas[]"
+          value="Doença pessoal ou familiar"
+        />
+        Doença pessoal ou familiar</label
+      >
+      <label
+        ><input type="checkbox" name="causas[]" value="Redução de renda" />
+        Redução de renda</label
+      >
+      <label
+        ><input type="checkbox" name="causas[]" value="Morte do provedor" />
+        Morte do provedor</label
+      >
+      <label
+        ><input
+          type="checkbox"
+          name="causas[]"
+          value="Ajudar amigos/parentes"
+        />
+        Ajudar amigos/parentes</label
+      >
+    </div>
+  </div>
+
+  <div class="inline-label-input radio-group">
+    <label
+      >Está registrado em cadastros de inadimplentes?
+      <span class="asterisco">*</span></label
+    >
+    <div>
+      <label
+        ><input
+          type="radio"
+          name="cadastro_inadimplente"
+          value="Sim"
+          required
+        />
+        Sim</label
+      >
+      <label
+        ><input
+          type="radio"
+          name="cadastro_inadimplente"
+          value="Não"
+          required
+        />
+        Não</label
+      >
+    </div>
+  </div>
+
+  <div class="inline-label-input">
+    <label for="valor_possivel_pagar"
+      >Valor possível de pagar mensalmente (sem prejuízo à subsistência):
+      <span class="asterisco">*</span></label
+    >
+    <input
+      type="text"
+      id="valor_possivel_pagar"
+      name="valor_possivel_pagar"
+      required
+      placeholder="R$ 0,00"
+    />
+  </div>
+</fieldset>
