@@ -244,6 +244,27 @@ button#add-credor:hover {
   color: #cfd8dc;
 }
 
+#voltar-topo {
+  position: fixed;
+  bottom: 24px;
+  right: 64px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+#voltar-topo:hover {
+  background-color: #0c54b2;
+}
+
+
 /* RESPONSIVO */
 @media (max-width: 600px) {
   .inline-duplo,

@@ -190,5 +190,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicia com um credor visível
   if (container.children.length === 0) criarCredor();
 
+  const btnVoltarTopo = document.getElementById("voltar-topo");
+  btnVoltarTopo?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   applyMasks();
 });
