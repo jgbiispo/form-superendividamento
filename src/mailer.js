@@ -1,23 +1,25 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 export async function sendForm(req, res) {
   const dados = req.body;
 
-  console.log("Dados recebidos:", dados);
+  console.log('Dados recebidos:', dados);
 
-  const credores = Array.isArray(dados["credor-nome"])
-    ? dados["credor-nome"].map((_, i) => ({
-        nome: dados["credor-nome"][i],
-        cnpj: dados["credor-cnpj"][i],
-        valor: dados["credor-valor"][i],
-        parcelas: dados["credor-parcelas"][i],
+  const credores = Array.isArray(dados['credor_nome'])
+    ? dados['credor_nome'].map((_, i) => ({
+        nome: dados['credor_nome'][i],
+        cnpj: dados['credor_cnpj'][i],
+        valor: dados['credor_valor_parcela'][i],
+        parcelas: dados['credor_parcelas_restantes'][i],
+        parcelasPagas: dados['credor_parcelas_pagas'][i],
       }))
     : [
         {
-          nome: dados["credor-nome"],
-          cnpj: dados["credor-cnpj"],
-          valor: dados["credor-valor"],
-          parcelas: dados["credor-parcelas"],
+          nome: dados['credor_nome'],
+          cnpj: dados['credor_cnpj'],
+          valor: dados['credor_valor_parcela'],
+          parcelas: dados['credor_parcelas_restantes'],
+          parcelasPagas: dados['credor_parcelas_pagas'][i],
         },
       ];
 
@@ -31,35 +33,41 @@ export async function sendForm(req, res) {
       ${credores
         .map(
           (c) =>
-            `<li>${c.nome} (CNPJ: ${c.cnpj}) - R$${c.valor} em ${c.parcelas}x</li>`
+            `<li>
+            <strong>Nome:</strong> ${c.nome} <br>
+            <strong>CNPJ:</strong> ${c.cnpj || 'N/A'} <br>
+            <strong>Valor Original da Dívida:</strong> ${c.valor || 'N/A'} <br>
+            <strong>Parcelas Pagas:</strong> ${c.parcelasPagas || '0'} <br>
+            <strong>Parcelas Restantes:</strong> ${c.parcelas || '0'} <br>
+          </li><br>`
         )
-        .join("")}
+        .join('')}
     </ul>
   `;
 
   // Configuração do Nodemailer
   const transporter = nodemailer.createTransport({
-    host: "procon.correio.es.gov.br",
+    host: 'procon.correio.es.gov.br',
     port: 587,
     secure: false,
     auth: {
-      user: "superendividamento@procon.es.gov.br",
-      pass: "@Procon123", // adicionar no .env depois
+      user: 'superendividamento@procon.es.gov.br',
+      pass: '@Procon123', // adicionar no .env depois
     },
   });
 
   // Envio do e-mail
   try {
     await transporter.sendMail({
-      from: '"Formulário PROCON" <superendividamento@procon.es.gov.br>',
-      to: "joao.bispo@procon.es.gov.br",
-      subject: "Novo Formulário de Superendividamento",
+      from: `"${dados.nome} - NAS" <superendividamento@procon.es.gov.br>`,
+      to: 'joao.bispo@procon.es.gov.br',
+      subject: `Formulário de Superendividamento - ${dados.nome}`,
       html: conteudoEmail,
     });
 
-    res.send("Formulário enviado com sucesso!");
+    res.send('Formulário enviado com sucesso!');
   } catch (err) {
     console.error(err);
-    res.status(500).send("Erro ao enviar e-mail.");
+    res.status(500).send('Erro ao enviar e-mail.');
   }
 }

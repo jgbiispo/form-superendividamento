@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Formulário de Superendividamento - PROCON/ES</title>
+    <title>Formulário NAS - PROCON/ES</title>
     <script defer src="/script.js"></script>
     <link rel="stylesheet" href="/style.css" />
   </head>
@@ -32,8 +32,8 @@
             type="text"
             id="nome-completo"
             name="nome"
-            placeholder="Digite seu nome completo"
             required
+            placeholder="Digite seu nome completo"
           />
         </div>
 
@@ -64,7 +64,6 @@
 
         <div class="inline-telefone">
           <label>Telefone: <span class="asterisco">*</span></label>
-
           <div class="inline-label-input ddd-input">
             <input
               type="text"
@@ -75,7 +74,6 @@
               placeholder="27"
             />
           </div>
-
           <div class="inline-label-input numero-input">
             <input
               type="text"
@@ -128,7 +126,6 @@
             max="120"
             required
             placeholder="anos"
-            style="max-width: 100px"
           />
         </div>
 
@@ -141,8 +138,8 @@
             type="text"
             id="cor-raca"
             name="cor_raca"
-            placeholder="Ex: Pardo, Branco, Preto"
             required
+            placeholder="Ex: Pardo, Branco, Preto"
           />
         </div>
 
@@ -152,9 +149,9 @@
           >
           <input
             type="date"
-            required
             id="data-nascimento"
             name="data_nascimento"
+            required
           />
         </div>
 
@@ -166,8 +163,8 @@
             type="text"
             id="profissao"
             name="profissao"
-            placeholder="Sua profissão"
             required
+            placeholder="Sua profissão"
           />
         </div>
 
@@ -189,7 +186,7 @@
         </div>
 
         <div class="inline-label-input">
-          <label for="empresa-orgao">Empresa/Orgão Público: </label>
+          <label for="empresa-orgao">Empresa/Orgão Público:</label>
           <input
             type="text"
             id="empresa-orgao"
@@ -239,7 +236,6 @@
             name="numero_dependentes"
             min="0"
             max="20"
-            placeholder="0"
             required
           />
         </div>
@@ -253,8 +249,8 @@
             type="text"
             id="renda-bruta"
             name="renda_bruta"
-            placeholder="R$ 0,00"
             required
+            placeholder="R$ 0,00"
           />
         </div>
 
@@ -267,8 +263,8 @@
             type="text"
             id="renda-liquida"
             name="renda_liquida"
-            placeholder="R$ 0,00"
             required
+            placeholder="R$ 0,00"
           />
         </div>
 
@@ -280,8 +276,8 @@
             type="text"
             id="renda-familiar"
             name="renda_familiar"
-            placeholder="R$ 0,00"
             required
+            placeholder="R$ 0,00"
           />
         </div>
       </fieldset>
@@ -300,7 +296,6 @@
               placeholder="R$ 0,00"
             />
           </div>
-
           <div class="inline-label-input">
             <label for="despesa-agua">Água:</label>
             <input
@@ -332,7 +327,6 @@
               placeholder="R$ 0,00"
             />
           </div>
-
           <div class="inline-label-input">
             <label for="despesa-condominio">Condomínio:</label>
             <input
@@ -354,7 +348,6 @@
               placeholder="R$ 0,00"
             />
           </div>
-
           <div class="inline-label-input">
             <label for="despesa-alimentacao">Alimentação:</label>
             <input
@@ -386,7 +379,6 @@
               placeholder="R$ 0,00"
             />
           </div>
-
           <div class="inline-label-input">
             <label for="despesa-educacao">Educação:</label>
             <input
@@ -408,9 +400,8 @@
               placeholder="R$ 0,00"
             />
           </div>
-
           <div class="inline-label-input">
-            <label for="despesa-impostos">Impostos (IPTU, IPVA) Mensal:</label>
+            <label for="despesa-impostos">Impostos (IPTU, IPVA):</label>
             <input
               type="text"
               id="despesa-impostos"
@@ -431,17 +422,189 @@
         </div>
       </fieldset>
 
-      <!-- Seção 4: Mapa dos Credores -->
+      <!-- Seção 4: Informações sobre o Superendividamento -->
       <fieldset>
-        <legend>4 - Mapa dos Credores</legend>
-        <div id="credores-container">
-          <!-- Credores dinâmicos aparecerão aqui -->
+        <legend>4 - Informações sobre o Superendividamento</legend>
+
+        <div class="inline-label-input radio-group">
+          <label>Possui casa própria? <span class="asterisco">*</span></label>
+          <div>
+            <label
+              ><input type="radio" name="casa_propria" value="Sim" required />
+              Sim</label
+            >
+            <label
+              ><input type="radio" name="casa_propria" value="Não" required />
+              Não</label
+            >
+          </div>
         </div>
+
+        <div class="inline-label-input">
+          <label for="divida_total"
+            >Montante total da dívida: <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="divida_total"
+            name="divida_total"
+            required
+            placeholder="R$ 0,00"
+          />
+        </div>
+
+        <div class="inline-label-input">
+          <label for="comprometimento_mensal"
+            >Comprometimento mensal com dívidas:
+            <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="comprometimento_mensal"
+            name="comprometimento_mensal"
+            required
+            placeholder="R$ 0,00"
+          />
+        </div>
+
+        <div class="inline-duplo">
+          <div class="inline-label-input">
+            <label for="numero_credores"
+              >Número de credores (empresas):
+              <span class="asterisco">*</span></label
+            >
+            <input
+              type="number"
+              id="numero_credores"
+              name="numero_credores"
+              min="0"
+              required
+            />
+          </div>
+          <div class="inline-label-input">
+            <label for="numero_dividas"
+              >Número de dívidas: <span class="asterisco">*</span></label
+            >
+            <input
+              type="number"
+              id="numero_dividas"
+              name="numero_dividas"
+              min="0"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label>Causas das dívidas (marque as aplicáveis):</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="checkbox"
+                name="causas[]"
+                value="Gastou mais do que ganha"
+              />
+              Gastou mais do que ganha</label
+            >
+            <label
+              ><input type="checkbox" name="causas[]" value="Desemprego" />
+              Desemprego</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="causas[]"
+                value="Divórcio/separação"
+              />
+              Divórcio/separação</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="causas[]"
+                value="Doença pessoal ou familiar"
+              />
+              Doença pessoal ou familiar</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="causas[]"
+                value="Redução de renda"
+              />
+              Redução de renda</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="causas[]"
+                value="Morte do provedor"
+              />
+              Morte do provedor</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="causas[]"
+                value="Ajudar amigos/parentes"
+              />
+              Ajudar amigos/parentes</label
+            >
+          </div>
+        </div>
+
+        <div class="inline-label-input radio-group">
+          <label
+            >Está registrado em cadastros de inadimplentes?
+            <span class="asterisco">*</span></label
+          >
+          <div>
+            <label
+              ><input
+                type="radio"
+                name="cadastro_inadimplente"
+                value="Sim"
+                required
+              />
+              Sim</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="cadastro_inadimplente"
+                value="Não"
+                required
+              />
+              Não</label
+            >
+          </div>
+        </div>
+
+        <div class="inline-label-input">
+          <label for="valor_possivel_pagar"
+            >Valor possível de pagar mensalmente (sem prejuízo à subsistência):
+            <span class="asterisco">*</span></label
+          >
+          <input
+            type="text"
+            id="valor_possivel_pagar"
+            name="valor_possivel_pagar"
+            required
+            placeholder="R$ 0,00"
+          />
+        </div>
+      </fieldset>
+
+      <!-- Seção 5: Mapa dos Credores -->
+      <fieldset>
+        <legend>5 - Mapa dos Credores</legend>
+        <div id="credores-container"></div>
         <button type="button" id="add-credor">+ Adicionar Credor</button>
       </fieldset>
 
       <button type="submit">Enviar Formulário</button>
     </form>
+
     <footer class="site-footer">
       <p>
         <strong
