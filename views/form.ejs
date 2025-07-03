@@ -4,19 +4,27 @@
     <meta charset="UTF-8" />
     <title>Formulário NAS - PROCON/ES</title>
     <script defer src="/script.js"></script>
+    <script defer src="/form-wizard.js"></script>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <%- include('partials/header') %>
 
     <main>
-      <form action="/send" method="POST">
-        <%- include('partials/form-identificacao') %> <%-
-        include('partials/form-socioeconomico') %> <%-
-        include('partials/form-despesas') %> <%-
-        include('partials/form-endividamento') %> <%-
-        include('partials/form-credores') %>
-        <button type="submit">Enviar Formulário</button>
+      <form action="/send" method="POST" id="formulario">
+        <div class="form-step ativo">
+          <%- include('partials/form-identificacao') %>
+        </div>
+        <div class="form-step"><%- include('partials/form-socioeconomico') %></div>
+        <div class="form-step"><%- include('partials/form-despesas') %></div>
+        <div class="form-step"><%- include('partials/form-endividamento') %></div>
+        <div class="form-step"><%- include('partials/form-credores') %></div>
+
+        <div class="botoes-navegacao">
+          <button type="button" id="btn-voltar">Voltar</button>
+          <button type="button" id="btn-proximo">Próximo</button>
+          <button type="submit" id="btn-enviar">Enviar Formulário</button>
+        </div>
       </form>
       <button id="voltar-topo" title="Voltar ao topo">↑</button>
     </main>

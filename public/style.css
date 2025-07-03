@@ -66,6 +66,15 @@ main {
 }
 
 /* FORMULÁRIO */
+.form-step:not(.ativo) {
+  display: none;
+}
+
+.erro-campo {
+  border-color: red;
+  background-color: #fff0f0;
+}
+
 form {
   margin-top: 1.5rem;
 }
@@ -182,6 +191,8 @@ select:focus {
 /* BOTÕES */
 #add-credor,
 button[type="submit"],
+button#btn-voltar,
+button#btn-proximo,
 .button-voltar {
   padding: 0.85rem 1.8rem;
   background-color: #1a73e8;
@@ -208,6 +219,27 @@ button[type="submit"],
 button#add-credor {
   background-color: #43a047;
   box-shadow: 0 4px 8px rgba(67, 160, 71, 0.3);
+}
+
+button#btn-voltar {
+  background-color: #1a73e8;
+  box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+  transition: background-color 0.35s ease, box-shadow 0.35s ease,
+    transform 0.25s ease;
+}
+
+button#btn-proximo {
+  background-color: #1a73e8;
+  box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+  transition: background-color 0.35s ease, box-shadow 0.35s ease,
+    transform 0.25s ease;
+}
+
+button#btn-voltar:hover,
+button#btn-proximo:hover {
+  background-color: #0c54b2;
+  box-shadow: 0 6px 12px rgba(12, 84, 178, 0.5);
+  transform: translateY(-2px);
 }
 
 button#add-credor:hover {
