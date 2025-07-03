@@ -1,3 +1,5 @@
 node_modules/
 W3*
 src/iisnode/*.txt
+*.log
+*.env
