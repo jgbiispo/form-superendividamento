@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Carrega as variáveis de ambiente do arquivo .env
-dotenv.config(); 
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 //view engine
 app.set("view engine", "ejs");
