@@ -6,6 +6,11 @@
   transition: all 0.3s ease;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* BODY */
 body {
   font-family: 'Segoe UI', Roboto, sans-serif;
