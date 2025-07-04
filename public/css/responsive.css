@@ -1,0 +1,43 @@
+@media (max-width: 600px) {
+  .inline-duplo,
+  .inline-telefone {
+    flex-direction: column;
+  }
+
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .header-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .header-text p {
+    font-size: 1.05rem;
+  }
+
+  main {
+    padding: 1.5rem 1.8rem;
+    margin: 1rem auto;
+  }
+
+  button,
+  .button-voltar {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+  }
+
+  #voltar-topo {
+    bottom: 18px;
+    right: 24px;
+    font-size: 1.3rem;
+    padding: 0.7rem 1.1rem;
+  }
+
+  .inline-duplo,
+  .inline-telefone {
+    flex-direction: column;
+  }
+}

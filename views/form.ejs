@@ -5,32 +5,120 @@
     <title>Formulário NAS - PROCON/ES</title>
     <script defer src="/script.js"></script>
     <script defer src="/form-wizard.js"></script>
-    <link rel="stylesheet" href="/style.css" />
-    <link href="https://procon.es.gov.br/Media/procon/favicon/LOGOMARCA_Procon_transp.png" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/form.css" />
+    <link rel="stylesheet" href="css/buttons.css" />
+    <link rel="stylesheet" href="css/credor.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      href="https://procon.es.gov.br/Media/procon/favicon/LOGOMARCA_Procon_transp.png"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Formulário para mapeamento de superenvidados - PROCON/ES. Preencha os dados necessários para iniciar o processo de negociação." />
-    <meta name="keywords" content="PROCON, ES, superendividamento, formulário, negociação, dívidas" />
+    <meta
+      name="description"
+      content="Formulário para mapeamento de superendividados - PROCON/ES. Preencha os dados necessários para iniciar o processo de negociação."
+    />
+    <meta
+      name="keywords"
+      content="PROCON, ES, superendividamento, formulário, negociação, dívidas"
+    />
   </head>
   <body>
     <%- include('partials/header') %>
 
     <main>
-      <form action="/send" method="POST" id="formulario">
-        <div class="form-step ativo">
-          <%- include('partials/form-identificacao') %>
-        </div>
-        <div class="form-step"><%- include('partials/form-socioeconomico') %></div>
-        <div class="form-step"><%- include('partials/form-despesas') %></div>
-        <div class="form-step"><%- include('partials/form-endividamento') %></div>
-        <div class="form-step"><%- include('partials/form-credores') %></div>
+      <!-- Barra de progresso e contagem das etapas -->
+      <div class="progress-bar" aria-label="Barra de progresso do formulário">
+        <span id="contador-etapas" aria-live="polite" aria-atomic="true">
+          Etapa 1 de 5
+        </span>
+      </div>
 
-        <div class="botoes-navegacao">
-          <button type="button" id="btn-voltar">Voltar</button>
-          <button type="button" id="btn-proximo">Próximo</button>
-          <button type="submit" id="btn-enviar">Enviar Formulário</button>
-        </div>
+      <!-- Formulário dividido em etapas -->
+      <form action="/send" method="POST" id="formulario" novalidate>
+        <!-- Cada etapa com aria-hidden para acessibilidade -->
+        <section
+          class="form-step ativo"
+          aria-hidden="false"
+          aria-label="Etapa 1 - Identificação"
+          tabindex="-1"
+        >
+          <%- include('partials/form-identificacao') %>
+        </section>
+
+        <section
+          class="form-step"
+          aria-hidden="true"
+          aria-label="Etapa 2 - Socioeconômico"
+          tabindex="-1"
+        >
+          <%- include('partials/form-socioeconomico') %>
+        </section>
+
+        <section
+          class="form-step"
+          aria-hidden="true"
+          aria-label="Etapa 3 - Despesas"
+          tabindex="-1"
+        >
+          <%- include('partials/form-despesas') %>
+        </section>
+
+        <section
+          class="form-step"
+          aria-hidden="true"
+          aria-label="Etapa 4 - Endividamento"
+          tabindex="-1"
+        >
+          <%- include('partials/form-endividamento') %>
+        </section>
+
+        <section
+          class="form-step"
+          aria-hidden="true"
+          aria-label="Etapa 5 - Credores"
+          tabindex="-1"
+        >
+          <%- include('partials/form-credores') %>
+        </section>
+
+        <!-- Botões de navegação -->
+        <nav class="botoes-navegacao" aria-label="Navegação do formulário">
+          <button
+            type="button"
+            id="btn-voltar"
+            class="button-voltar"
+            disabled
+            aria-disabled="true"
+          >
+            ← Voltar
+          </button>
+          <button type="button" id="btn-proximo" aria-label="Próxima etapa">
+            Próximo →
+          </button>
+          <button
+            type="submit"
+            id="btn-enviar"
+            style="display: none"
+            aria-label="Enviar formulário"
+          >
+            Enviar Formulário
+          </button>
+        </nav>
       </form>
-      <button id="voltar-topo" title="Voltar ao topo">↑</button>
+
+      <!-- Botão voltar ao topo -->
+      <button
+        id="voltar-topo"
+        title="Voltar ao topo"
+        aria-label="Voltar ao topo"
+      >
+        ↑
+      </button>
     </main>
 
     <%- include('partials/footer') %>

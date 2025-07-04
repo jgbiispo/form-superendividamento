@@ -1,0 +1,118 @@
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 2.5rem 3rem;
+  background-color: #ffffffdd;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08), 0 0 20px rgba(26, 115, 232, 0.1);
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  background-color: #004080;
+  color: #e3ebff;
+  padding: 1.25rem 2rem;
+  border-bottom: 5px solid #1a73e8;
+  gap: 1.25rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  user-select: none;
+}
+
+.logo {
+  height: 64px;
+  background-color: white;
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05) rotate(3deg);
+}
+
+.header-text h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.header-text p {
+  margin-top: 6px;
+  font-size: 1.15rem;
+  color: #a9c1ff;
+  font-weight: 500;
+}
+
+.site-footer {
+  background-color: #004080;
+  color: #dbe9ff;
+  text-align: center;
+  padding: 1.8rem 2rem;
+  border-top: 5px solid #1a73e8;
+  font-size: 0.95rem;
+  margin-top: 5rem;
+  user-select: none;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.site-footer p {
+  margin: 0.4rem 0;
+  font-weight: 500;
+}
+
+.site-footer p:last-child {
+  font-size: 0.85rem;
+  color: #a9bcd8;
+  font-weight: 400;
+}
+
+#voltar-topo {
+  position: fixed;
+  bottom: 24px;
+  right: 48px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 0.9rem 1.6rem;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 3px 8px rgba(26, 115, 232, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.25s ease;
+}
+
+#voltar-topo:hover {
+  background-color: #0c54b2;
+  box-shadow: 0 6px 16px rgba(12, 84, 178, 0.9);
+  transform: translateY(-3px);
+}
+
+.botoes-navegacao {
+  display: flex;
+  justify-content: start;
+  margin-top: 1.5rem;
+  gap: 1.2rem;
+}
+
+.botoes-navegacao button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(26, 115, 232, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.25s ease;
+}
+
+.botoes-navegacao button:hover {
+  background-color: #0c54b2;
+  box-shadow: 0 6px 16px rgba(12, 84, 178, 0.9);
+  transform: translateY(-3px);
+}

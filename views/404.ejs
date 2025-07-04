@@ -2,10 +2,36 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Página não encontrada</title>
+    <title>Página não encontrada - PROCON/ES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/buttons.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      href="https://procon.es.gov.br/Media/procon/favicon/LOGOMARCA_Procon_transp.png"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
   </head>
   <body>
-    <h1>Erro 404</h1>
-    <p>A página que você está procurando não existe.</p>
+    <%- include('partials/header') %>
+
+    <main style="text-align: center; padding: 5rem 2rem">
+      <h1 style="font-size: 3rem; color: #d32f2f">Erro 404</h1>
+      <p style="font-size: 1.25rem; margin-top: 1rem">
+        A página que você está procurando não existe ou foi movida.
+      </p>
+      <a
+        href="/"
+        class="button-voltar"
+        style="margin-top: 2rem; display: inline-block"
+      >
+        ← Voltar para a página inicial
+      </a>
+    </main>
+
+    <%- include('partials/footer') %>
   </body>
 </html>

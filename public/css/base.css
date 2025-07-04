@@ -1,0 +1,17 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+/* BODY */
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f0f3f7, #d9e2ec);
+  color: #2e3a59;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+}

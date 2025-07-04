@@ -1,0 +1,220 @@
+/* === FORMULÁRIO E PROGRESSO === */
+form {
+  margin-top: 1.5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#contador-etapas {
+  display: block;
+  font-size: 1.1rem;
+  color: #1a73e8;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* === NAVEGAÇÃO ENTRE ETAPAS === */
+.form-step {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  display: none;
+}
+
+.form-step.ativo {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === FIELDSET E LEGEND === */
+fieldset {
+  border: 1.5px solid #cbd6e2;
+  border-radius: 10px;
+  padding: 2rem 2.2rem;
+  margin-bottom: 2.5rem;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 85, 170, 0.07);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  overflow: hidden;
+}
+
+fieldset:hover {
+  border-color: #1a73e8;
+  box-shadow: 0 8px 18px rgba(0, 85, 170, 0.12);
+}
+
+legend {
+  padding: 0 1.2rem;
+  font-weight: 700;
+  color: #0c3c91;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 1px #d1d9f7;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+/* === CAMPOS BÁSICOS === */
+label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #2e3a59;
+  user-select: none;
+  cursor: pointer;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='email'],
+input[type='date'],
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.8px solid #c4c9d8;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  background-color: #fbfbff;
+  margin-bottom: 1.3rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #1a73e8;
+  outline: none;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(26, 115, 232, 0.4);
+}
+
+/* === INPUTS INLINE === */
+.inline-label-input {
+  margin-bottom: 1.3rem;
+}
+
+.inline-duplo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.inline-duplo .inline-label-input {
+  flex: 1;
+  min-width: 220px;
+}
+
+/* === TELEFONE GRUPO REFORMULADO === */
+.grupo-telefone {
+  margin-bottom: 1.5rem;
+}
+
+.grupo-telefone-inputs {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 420px;
+}
+
+.grupo-telefone-inputs input {
+  padding: 0.75rem 1rem;
+  font-size: 1.05rem;
+  border: 1.8px solid #c4c9d8;
+  border-radius: 6px;
+  background-color: #fbfbff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grupo-telefone-inputs input:focus {
+  border-color: #1a73e8;
+  background-color: #ffffff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(26, 115, 232, 0.4);
+}
+
+#telefone_ddd {
+  width: 80px;
+  text-align: center;
+}
+
+#telefone_numero {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* === GRUPOS DE RADIO E CHECKBOX === */
+.radio-group {
+  margin-bottom: 1.3rem;
+}
+
+.radio-group > label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  font-weight: 500;
+  user-select: none;
+  margin-bottom: 0.4rem;
+}
+
+.radio-group div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 0.6rem;
+}
+
+.estado-civil-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.6rem;
+}
+
+.estado-civil-group label {
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* === ASTERISCO DE CAMPOS OBRIGATÓRIOS === */
+.asterisco {
+  color: #d32f2f;
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-left: 3px;
+  vertical-align: top;
+}
+
+/* === BOTÃO DE ADICIONAR CREDOR === */
+#add-credor {
+  background-color: #43a047;
+  padding: 0.85rem 1.8rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(46, 125, 50, 0.5);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+  margin-top: 0.6rem;
+  display: inline-block;
+}
+
+#add-credor:hover {
+  background-color: #2e7d32;
+  box-shadow: 0 6px 12px rgba(46, 125, 50, 0.7);
+}
