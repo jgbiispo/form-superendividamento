@@ -271,6 +271,6 @@ export async function sendForm(req, res) {
     res.render('sent', { title: 'Formulário enviado' });
   } catch (err) {
     registrarLog('ERRO', `Falha ao enviar e-mail: ${err.message}`);
-    res.status(500).send('Erro ao enviar e-mail.');
+    res.render('error', { title: 'Erro no envio' });
   }
 }

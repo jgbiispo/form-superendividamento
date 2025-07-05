@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Erro no Envio - PROCON/ES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/utils.css" />
+    <link rel="stylesheet" href="/css/error.css" />
+    <link
+      href="https://procon.es.gov.br/Media/procon/favicon/LOGOMARCA_Procon_transp.png"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+
+    <main>
+      <div class="error-container" role="alert" aria-live="assertive">
+        <h1>Ops! Algo deu errado.</h1>
+        <p>
+          Ocorreu um erro durante o envio do formulário.<br />
+          Nossa equipe já foi notificada automaticamente e está trabalhando para
+          resolver o problema o mais rápido possível.
+        </p>
+        <p>Pedimos desculpas pelo transtorno e agradecemos sua compreensão.</p>
+        <a href="/">← Voltar ao início</a>
+      </div>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>
