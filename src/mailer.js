@@ -1,5 +1,5 @@
-import nodemailer from "nodemailer";
-import { registrarLog } from "./logger.js";
+import nodemailer from 'nodemailer';
+import { registrarLog } from './logger.js';
 
 function escapeHtml(text) {
   return text
@@ -7,20 +7,20 @@ function escapeHtml(text) {
         /[&<>"']/g,
         (m) =>
           ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;",
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
           }[m])
       )
-    : "";
+    : '';
 }
 
 const parseMoney = (v) => {
   if (!v) return 0;
   let s = String(v).trim();
-  s = s.replace(/\./g, "").replace(",", ".");
+  s = s.replace(/\./g, '').replace(',', '.');
   const n = parseFloat(s);
   return isNaN(n) ? 0 : n;
 };
@@ -29,7 +29,7 @@ export async function sendForm(req, res) {
   const dados = req.body;
 
   const getField = (key, i = 0) =>
-    Array.isArray(dados[key]) ? dados[key][i] || "" : dados[key] || "";
+    Array.isArray(dados[key]) ? dados[key][i] || '' : dados[key] || '';
 
   const getArrayField = (key) => {
     const v = dados[key];
@@ -41,77 +41,77 @@ export async function sendForm(req, res) {
     : 0;
 
   const credores = Array.from({ length: nCredores }, (_, i) => {
-    const tipo = getArrayField(`credor_tipo_${i}`).join(", ");
-    const como = getArrayField(`credor_como_${i}`).join(", ");
+    const tipo = getArrayField(`credor_tipo_${i}`).join(', ');
+    const como = getArrayField(`credor_como_${i}`).join(', ');
 
     return {
-      nome: getField("credor_nome", i),
-      cnpj: getField("credor_cnpj", i),
-      valor: getField("credor_valor", i),
-      valor_parcela: getField("credor_valor_parcela", i),
-      parcelasPagas: getField("credor_parcelas_pagas", i),
-      parcelasRestantes: getField("credor_parcelas_restantes", i),
+      nome: getField('credor_nome', i),
+      cnpj: getField('credor_cnpj', i),
+      valor: getField('credor_valor', i),
+      valor_parcela: getField('credor_valor_parcela', i),
+      parcelasPagas: getField('credor_parcelas_pagas', i),
+      parcelasRestantes: getField('credor_parcelas_restantes', i),
 
       tipo_divida: tipo,
-      tipo_divida_outros: getField("credor_tipo_outros", i),
+      tipo_divida_outros: getField('credor_tipo_outros', i),
 
-      garantia: getField(`credor_garantia_${i}`) || "",
-      garantia_qual: getField("credor_garantia_qual", i),
+      garantia: getField(`credor_garantia_${i}`) || '',
+      garantia_qual: getField('credor_garantia_qual', i),
 
-      processo_judicial: getField(`credor_processo_${i}`) || "",
+      processo_judicial: getField(`credor_processo_${i}`) || '',
 
-      desconto_folha: getField(`credor_desconto_${i}`) || "",
-      num_prestacoes: getField("credor_num_prestacoes", i),
+      desconto_folha: getField(`credor_desconto_${i}`) || '',
+      num_prestacoes: getField('credor_num_prestacoes', i),
 
-      divida_vencida: getField(`credor_vencida_${i}`) || "",
+      divida_vencida: getField(`credor_vencida_${i}`) || '',
 
-      renegociou: getField(`credor_renegociacao_${i}`) || "",
+      renegociou: getField(`credor_renegociacao_${i}`) || '',
       como_renegociou: como,
 
-      recebeu_contrato: getField(`credor_contrato_${i}`) || "",
-      contrato_quando: getField(`credor_contrato_quando_${i}`) || "",
+      recebeu_contrato: getField(`credor_contrato_${i}`) || '',
+      contrato_quando: getField(`credor_contrato_quando_${i}`) || '',
 
-      inadimplente_contratacao: getField(`credor_inadimplente_${i}`) || "",
+      inadimplente_contratacao: getField(`credor_inadimplente_${i}`) || '',
     };
   });
 
-  const causas = getArrayField("causas");
+  const causas = getArrayField('causas');
 
   const despesas = [
-    ["Luz", dados.despesa_luz],
-    ["Água", dados.despesa_agua],
-    ["Telefone/Internet", dados.despesa_telefone_internet],
-    ["Aluguel", dados.despesa_aluguel],
-    ["Condomínio", dados.despesa_condominio],
-    ["Medicamentos", dados.despesa_medicamentos],
-    ["Alimentação", dados.despesa_alimentacao],
-    ["Gás", dados.despesa_gas],
-    ["Plano de Saúde", dados.despesa_plano_saude],
-    ["Educação", dados.despesa_educacao],
-    ["Pensão Alimentícia", dados.despesa_pensao_alimenticia],
-    ["Impostos", dados.despesa_impostos],
-    ["Outras", dados.despesa_outras],
+    ['Luz', dados.despesa_luz],
+    ['Água', dados.despesa_agua],
+    ['Telefone/Internet', dados.despesa_telefone_internet],
+    ['Aluguel', dados.despesa_aluguel],
+    ['Condomínio', dados.despesa_condominio],
+    ['Medicamentos', dados.despesa_medicamentos],
+    ['Alimentação', dados.despesa_alimentacao],
+    ['Gás', dados.despesa_gas],
+    ['Plano de Saúde', dados.despesa_plano_saude],
+    ['Educação', dados.despesa_educacao],
+    ['Pensão Alimentícia', dados.despesa_pensao_alimenticia],
+    ['Impostos', dados.despesa_impostos],
+    ['Outras', dados.despesa_outras],
   ];
 
   const totalDespesas = despesas.reduce((tot, [, v]) => tot + parseMoney(v), 0);
 
   const rendaLiquida =
-    parseFloat((dados.renda_liquida || "0").replace(",", ".")) || 0;
+    parseFloat((dados.renda_liquida || '0').replace(',', '.')) || 0;
   const comprometido =
     parseFloat(
-      String(dados.comprometimento_mensal || "0").replace(/[^\d.-]/g, "")
+      String(dados.comprometimento_mensal || '0').replace(/[^\d.-]/g, '')
     ) || 0;
   const percComprometido =
     rendaLiquida > 0 ? (comprometido / rendaLiquida) * 100 : 0;
 
-  let situacao = "Em situação regular";
+  let situacao = 'Em situação regular';
   if (percComprometido > 30 || totalDespesas > rendaLiquida) {
-    situacao = "Superendividado";
+    situacao = 'Superendividado';
   } else if (percComprometido >= 25 && percComprometido <= 30) {
-    situacao = "Possivelmente superendividado";
+    situacao = 'Possivelmente superendividado';
   }
 
-  const fromName = dados.nome ? dados.nome.replace(/["<>]/g, "") : "Usuário";
+  const fromName = dados.nome ? dados.nome.replace(/["<>]/g, '') : 'Usuário';
 
   const conteudoEmail = `
   <div style="font-family:Arial, sans-serif; color:#333;">
@@ -153,9 +153,9 @@ export async function sendForm(req, res) {
             ([d, v]) =>
               `<tr><td><strong>${escapeHtml(
                 d
-              )}:</strong></td><td>R$ ${escapeHtml(v || "0,00")}</td></tr>`
+              )}:</strong></td><td>R$ ${escapeHtml(v || '0,00')}</td></tr>`
           )
-          .join("")}
+          .join('')}
         <tr><td><strong>Total:</strong></td><td><strong>R$ ${totalDespesas.toFixed(
           2
         )}</strong></td></tr>
@@ -173,7 +173,7 @@ export async function sendForm(req, res) {
     )}</p>
     <p><strong>Nº credores:</strong> ${escapeHtml(dados.numero_credores)}</p>
     <p><strong>Nº dívidas:</strong> ${escapeHtml(dados.numero_dividas)}</p>
-    <p><strong>Causas:</strong> ${escapeHtml(causas.join(", "))}</p>
+    <p><strong>Causas:</strong> ${escapeHtml(causas.join(', '))}</p>
     <p><strong>Cadastros de inadimplência:</strong> ${escapeHtml(
       dados.cadastro_inadimplente
     )}</p>
@@ -202,13 +202,13 @@ export async function sendForm(req, res) {
             ? `<p><strong>Outros:</strong> ${escapeHtml(
                 c.tipo_divida_outros
               )}</p>`
-            : ""
+            : ''
         }
         <p><strong>Com Garantia:</strong> ${escapeHtml(c.garantia)}</p>
         ${
           c.garantia_qual
             ? `<p><strong>Qual:</strong> ${escapeHtml(c.garantia_qual)}</p>`
-            : ""
+            : ''
         }
         <p><strong>Processo Judicial:</strong> ${escapeHtml(
           c.processo_judicial
@@ -221,14 +221,14 @@ export async function sendForm(req, res) {
             ? `<p><strong>Nº Prestações:</strong> ${escapeHtml(
                 c.num_prestacoes
               )}</p>`
-            : ""
+            : ''
         }
         <p><strong>Dívida vencida:</strong> ${escapeHtml(c.divida_vencida)}</p>
         <p><strong>Renegociou:</strong> ${escapeHtml(c.renegociou)}</p>
         ${
           c.como_renegociou
             ? `<p><strong>Como:</strong> ${escapeHtml(c.como_renegociou)}</p>`
-            : ""
+            : ''
         }
         <p><strong>Recebeu contrato:</strong> ${escapeHtml(
           c.recebeu_contrato
@@ -236,19 +236,19 @@ export async function sendForm(req, res) {
         ${
           c.contrato_quando
             ? `<p><strong>Quando:</strong> ${escapeHtml(c.contrato_quando)}</p>`
-            : ""
+            : ''
         }
         <p><strong>Inadimplente na contratação:</strong> ${escapeHtml(
           c.inadimplente_contratacao
         )}</p>
       </fieldset>`
       )
-      .join("")}
+      .join('')}
   </div>
   `;
 
   const transporter = nodemailer.createTransport({
-    host: "procon.correio.es.gov.br",
+    host: 'procon.correio.es.gov.br',
     port: 587,
     secure: false,
     auth: {
@@ -260,17 +260,17 @@ export async function sendForm(req, res) {
   try {
     await transporter.sendMail({
       from: `"${fromName} - NAS" <superendividamento@procon.es.gov.br>`,
-      to: "joao.bispo@procon.es.gov.br",
+      to: 'superendividamento@procon.es.gov.br',
       subject: `Formulário de Superendividamento – ${fromName}`,
       headers: {
-        "Content-Type": "text/html; charset=UTF-8",
+        'Content-Type': 'text/html; charset=UTF-8',
       },
       html: conteudoEmail,
     });
 
-    res.render("sent", { title: "Formulário enviado" });
+    res.render('sent', { title: 'Formulário enviado' });
   } catch (err) {
-    registrarLog("ERRO", `Falha ao enviar e-mail: ${err.message}`);
-    res.status(500).send("Erro ao enviar e-mail.");
+    registrarLog('ERRO', `Falha ao enviar e-mail: ${err.message}`);
+    res.status(500).send('Erro ao enviar e-mail.');
   }
 }

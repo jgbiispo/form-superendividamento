@@ -1,35 +1,33 @@
-// public/form.js
-
 // Espera o DOM estar pronto
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("credores-container");
-  const addBtn = document.getElementById("add-credor");
-  const btnVoltarTopo = document.getElementById("voltar-topo");
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('credores-container');
+  const addBtn = document.getElementById('add-credor');
+  const btnVoltarTopo = document.getElementById('voltar-topo');
 
   let contador = 0;
 
   // Aplica máscaras em campos padrão
   const applyMasks = () => {
-    const cpf = document.getElementById("cpf");
-    const ddd = document.getElementById("telefone_ddd");
-    const tel = document.getElementById("telefone_numero");
+    const cpf = document.getElementById('cpf');
+    const ddd = document.getElementById('telefone_ddd');
+    const tel = document.getElementById('telefone_numero');
 
-    cpf?.addEventListener("input", () => {
+    cpf?.addEventListener('input', () => {
       cpf.value = cpf.value
-        .replace(/\D/g, "")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
     });
 
-    ddd?.addEventListener("input", () => {
-      ddd.value = ddd.value.replace(/\D/g, "").slice(0, 2);
+    ddd?.addEventListener('input', () => {
+      ddd.value = ddd.value.replace(/\D/g, '').slice(0, 2);
     });
 
-    tel?.addEventListener("input", () => {
+    tel?.addEventListener('input', () => {
       tel.value = tel.value
-        .replace(/\D/g, "")
-        .replace(/(\d{5})(\d{4})$/, "$1-$2")
+        .replace(/\D/g, '')
+        .replace(/(\d{5})(\d{4})$/, '$1-$2')
         .slice(0, 10);
     });
   };
@@ -39,16 +37,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = contador++;
 
     // Fecha todos os anteriores
-    document.querySelectorAll(".credor-body.expanded").forEach((body) => {
-      body.classList.remove("expanded");
-      body.style.display = "none";
+    document.querySelectorAll('.credor-body.expanded').forEach((body) => {
+      body.classList.remove('expanded');
+      body.style.display = 'none';
     });
-    document.querySelectorAll(".toggle-btn").forEach((btn, index) => {
+    document.querySelectorAll('.toggle-btn').forEach((btn, index) => {
       btn.textContent = `▲ Credor ${index + 1}`;
     });
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "credor-wrapper";
+    const wrapper = document.createElement('div');
+    wrapper.className = 'credor-wrapper';
 
     wrapper.innerHTML = `
       <div class="credor-header">
@@ -175,25 +173,25 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     // Eventos
-    const toggleBtn = wrapper.querySelector(".toggle-btn");
-    const fieldset = wrapper.querySelector(".credor-body");
-    toggleBtn.addEventListener("click", () => {
-      const expanded = fieldset.classList.toggle("expanded");
-      fieldset.style.display = expanded ? "block" : "none";
-      toggleBtn.textContent = `${expanded ? "▼" : "▲"} Credor ${id + 1}`;
+    const toggleBtn = wrapper.querySelector('.toggle-btn');
+    const fieldset = wrapper.querySelector('.credor-body');
+    toggleBtn.addEventListener('click', () => {
+      const expanded = fieldset.classList.toggle('expanded');
+      fieldset.style.display = expanded ? 'block' : 'none';
+      toggleBtn.textContent = `${expanded ? '▼' : '▲'} Credor ${id + 1}`;
     });
 
-    const removeBtn = wrapper.querySelector(".remove-btn");
-    removeBtn.addEventListener("click", () => wrapper.remove());
+    const removeBtn = wrapper.querySelector('.remove-btn');
+    removeBtn.addEventListener('click', () => wrapper.remove());
 
     container.appendChild(wrapper);
-    wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+    wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  addBtn?.addEventListener("click", criarCredor);
+  addBtn?.addEventListener('click', criarCredor);
   if (container.children.length === 0) criarCredor();
-  btnVoltarTopo?.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  btnVoltarTopo?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
   applyMasks();
 });
