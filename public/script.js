@@ -3,8 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('credores-container');
   const addBtn = document.getElementById('add-credor');
   const btnVoltarTopo = document.getElementById('voltar-topo');
+  const form = document.getElementById('formulario');
+  const btnEnviar = document.getElementById('btn-enviar');
 
   let contador = 0;
+
+  // Verifica se o botão de enviar e o loader existem
+  form?.addEventListener('submit', () => {
+    btnEnviar.disabled = true;
+    btnEnviar.textContent = 'Enviando...';
+    btnEnviar.classList.add('disabled');
+    btnVoltarTopo.classList.add('disabled');
+  });
 
   // Aplica máscaras em campos padrão
   const applyMasks = () => {
