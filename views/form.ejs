@@ -34,57 +34,79 @@
 
     <main>
       <!-- Barra de progresso e contagem das etapas -->
-      <div class="progress-bar" aria-label="Barra de progresso do formulário">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        aria-label="Barra de progresso do formulário"
+        aria-valuemin="1"
+        aria-valuemax="5"
+        aria-valuenow="1"
+      >
         <span id="contador-etapas" aria-live="polite" aria-atomic="true">
           Etapa 1 de 5
         </span>
       </div>
 
       <!-- Formulário dividido em etapas -->
-      <form action="/send" method="POST" id="formulario" novalidate>
-        <!-- Cada etapa com aria-hidden para acessibilidade -->
+      <form action="/send" method="POST" id="formulario" role="form" novalidate>
+        <!-- Etapa 1 -->
         <section
           class="form-step ativo"
           aria-hidden="false"
-          aria-label="Etapa 1 - Identificação"
+          aria-labelledby="etapa1-titulo"
           tabindex="-1"
         >
+          <h2 id="etapa1-titulo" class="visually-hidden">
+            Etapa 1 - Identificação
+          </h2>
           <%- include('partials/form-identificacao') %>
         </section>
 
+        <!-- Etapa 2 -->
         <section
           class="form-step"
           aria-hidden="true"
-          aria-label="Etapa 2 - Socioeconômico"
+          aria-labelledby="etapa2-titulo"
           tabindex="-1"
         >
+          <h2 id="etapa2-titulo" class="visually-hidden">
+            Etapa 2 - Socioeconômico
+          </h2>
           <%- include('partials/form-socioeconomico') %>
         </section>
 
+        <!-- Etapa 3 -->
         <section
           class="form-step"
           aria-hidden="true"
-          aria-label="Etapa 3 - Despesas"
+          aria-labelledby="etapa3-titulo"
           tabindex="-1"
         >
+          <h2 id="etapa3-titulo" class="visually-hidden">Etapa 3 - Despesas</h2>
           <%- include('partials/form-despesas') %>
         </section>
 
+        <!-- Etapa 4 -->
         <section
           class="form-step"
           aria-hidden="true"
-          aria-label="Etapa 4 - Endividamento"
+          aria-labelledby="etapa4-titulo"
           tabindex="-1"
         >
+          <h2 id="etapa4-titulo" class="visually-hidden">
+            Etapa 4 - Endividamento
+          </h2>
           <%- include('partials/form-endividamento') %>
         </section>
 
+        <!-- Etapa 5 -->
         <section
           class="form-step"
           aria-hidden="true"
-          aria-label="Etapa 5 - Credores"
+          aria-labelledby="etapa5-titulo"
           tabindex="-1"
         >
+          <h2 id="etapa5-titulo" class="visually-hidden">Etapa 5 - Credores</h2>
           <%- include('partials/form-credores') %>
         </section>
 
@@ -96,17 +118,22 @@
             class="button-voltar"
             disabled
             aria-disabled="true"
+            aria-label="Voltar para etapa anterior"
           >
             ← Voltar
           </button>
-          <button type="button" id="btn-proximo" aria-label="Próxima etapa">
+          <button
+            type="button"
+            id="btn-proximo"
+            aria-label="Avançar para próxima etapa"
+          >
             Próximo →
           </button>
           <button
             type="submit"
             id="btn-enviar"
             style="display: none"
-            aria-label="Enviar formulário"
+            aria-label="Enviar o formulário completo"
           >
             Enviar Formulário
           </button>
